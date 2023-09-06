@@ -1,4 +1,4 @@
-# Görüntü İşleme Algoritmaları
+# Görüntü İşleme Algoritmaları (Image Processing Algorithms)
 
 ## Canny Edge Detection, Harris Corner Detection, Segmentation, Dehazing
 Bu proje, Python ve OpenCV kullanarak farklı görüntü işleme algoritmalarını uygulamayı göstermektedir. Aşağıda projede yer alan işlemler hakkında kısa bir açıklama bulunmaktadır.
