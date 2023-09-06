@@ -2,14 +2,14 @@ import cv2
 import numpy as np                                                            
 
 
-def canny_edge_detection(image):                                               # Canny algoritmasını kullandım.
+def canny_edge_detection(image):                                               
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    blur= cv2.GaussianBlur(gray, (3, 3), 0)                                    # daha çok ayrıntıyı tespit etmek için Gaussianın bulanıklaştırma filtresini uuyguladım. 
+    blur= cv2.GaussianBlur(gray, (3, 3), 0)                                  
     kenar = cv2.Canny(blur, 50, 150)                                           
     return kenar
 
 
-def harris_corner_detection(image1):                                           # Harris corner detection algoritmasını kullandım.
+def harris_corner_detection(image1):                                          
     gray = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
     gray = np.float32(gray)
     corner = cv2.cornerHarris(gray, 5, 3, 0.2)
@@ -20,19 +20,19 @@ def harris_corner_detection(image1):                                           #
 
 
 def segmentation(image2):
-    gray = cv2.cvtColor(image2, cv2.COLOR_BGR2GRAY)                            # Thresholding algoritmasıyla resmi siyah ve beyaz olacak şekilde iki bölüme ayırdım .
+    gray = cv2.cvtColor(image2, cv2.COLOR_BGR2GRAY)                            
     ret, thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
     return thresh
 
 
 def dehaze(image3):
     gray = cv2.cvtColor(image3, cv2.COLOR_BGR2GRAY)
-    dehazed = np.zeros_like(image3, dtype=np.float32)                          # Sisin gitmesi için her pixeli düzelttim.
+    dehazed = np.zeros_like(image3, dtype=np.float32)                         
     for channel in range(3):
         dehazed[:, :, channel] = (image3[:, :, channel] - np.min(image3[:, :, channel])) / \
                                  (np.percentile(gray, 99.9) - np.min(image3[:, :, channel]))
       
-    dehazed = np.clip(dehazed, 0, 1) * 255                                     # bazı pixel değerlerini sınırladım.
+    dehazed = np.clip(dehazed, 0, 1) * 255                                     
     return dehazed.astype(np.uint8)
 
 
